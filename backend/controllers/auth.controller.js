@@ -61,7 +61,6 @@ export const login = async (req, res) => {
   const {password, username} = req.body;
   
   const user = await User.findOne({username})
-  console.log(user);
   
   const isPasswordCorrect = await bcrypt.compare(password, user?.password || '')
   

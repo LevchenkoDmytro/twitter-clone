@@ -45,8 +45,8 @@ export const followUnfollowUser = async (req,res) => {
 
       const newNotification = new Notification({
         type: 'follow',
-        from: req.user_id,
-        to: userToModify.id
+        from: req.user._id,
+        to: userToModify._id,
       })
 
       await newNotification.save();

@@ -1,6 +1,7 @@
 import express from "express";
 import authRoutes from './routes/auth.routes.js'
 import userRoutes from './routes/user.routes.js'
+import postsRoutes from './routes/posts.routes.js'
 import connectMongoDB from './db/connectMongoDB.js'
 import dotenv from "dotenv";
 import cookieParser from 'cookie-parser'
@@ -23,6 +24,7 @@ app.use(cookieParser())
 
 app.use("/api/auth", authRoutes)
 app.use("/api/users", userRoutes)
+app.use("/api/posts", postsRoutes)
 
 
 
