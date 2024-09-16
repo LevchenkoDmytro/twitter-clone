@@ -1,7 +1,8 @@
 import express from "express";
-import authRoutes from './routes/auth.routes.js'
-import userRoutes from './routes/user.routes.js'
-import postsRoutes from './routes/posts.routes.js'
+import authRoutes from './routes/auth.route.js'
+import userRoutes from './routes/user.route.js'
+import postsRoutes from './routes/posts.route.js'
+import notificationRoutes from './routes/notification.route.js'
 import connectMongoDB from './db/connectMongoDB.js'
 import dotenv from "dotenv";
 import cookieParser from 'cookie-parser'
@@ -22,9 +23,10 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 
-app.use("/api/auth", authRoutes)
-app.use("/api/users", userRoutes)
-app.use("/api/posts", postsRoutes)
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/posts", postsRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 
 

@@ -9,4 +9,4 @@ router.get('/suggested', protectRoute ,getSuggestedUsers)
 router.post('/follow/:id', protectRoute, followUnfollowUser)
 router.post('/update', protectRoute ,updateUser)
 
-export default router
+export default router;
