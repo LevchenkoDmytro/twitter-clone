@@ -22,11 +22,23 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
+// Дозволені домени
+const allowedOrigins = [
+  'http://localhost:3000', // Локальний домен для розробки
+  'https://twitter-clone-6uyt.onrender.com' // Продакшн домен
+];
+
+// Налаштування CORS
 app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-  credentials: true 
-}));
+  origin: (origin, callback) => {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true); // Дозволити запит
+    } else {
+      callback(new Error('Not allowed by CORS')); // Відхилити запит
+    }
+  },
+  credentials: true, // Дозволити передачу облікових даних
+}));;
 
 app.use(express.json({limit: '5mb'}))
 app.use(express.urlencoded({extended:true}))
