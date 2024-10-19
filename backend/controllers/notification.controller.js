@@ -1,52 +1,32 @@
-import Notification from "../models/notification.model.js"
+import Notification from "../models/notification.model.js";
 
 export const getNotifications = async (req, res) => {
-  try {
-    const userId = req.user._id
-    
-    const notification = await Notification.find({to: userId}).populate({
-      path: 'from',
-      select: 'username profileImg'
-    })
+	try {
+		const userId = req.user._id;
 
-    await Notification.updateMany({to: userId}, {read: true});
+		const notifications = await Notification.find({ to: userId }).populate({
+			path: "from",
+			select: "username profileImg",
+		});
 
-    res.status(200).json(notification);
-  } catch (error) {
-    console.log('Error in getNotification controller', error.message);
-    res.status(500).json({error: 'Server error'})
-  }
-}
+		Notification.updateMany({ to: userId }, { read: true }).exec();
+
+		res.status(200).json(notifications);
+	} catch (error) {
+		console.log("Error in getNotifications function", error.message);
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+};
 
 export const deleteNotifications = async (req, res) => {
-  try {
-    const userId = req.user._id;
+	try {
+		const userId = req.user._id;
 
-    await Notification.deleteMany({to: userId});
+		await Notification.deleteMany({ to: userId });
 
-    res.status(200).json({message: "Notification deleted successfully"})
-  } catch (error) {
-    console.log('Error in deleteNotification controller');
-    res.status(500).json({error: 'Server error'})
-  }
-}
-
-export const deleteNotification = async (req, res) => {
-  try {
-    const notificationId = req.params.id;
-    const userId = req.user._id;
-    const notification = await Notification.findById(notificationId);
-
-    if(!notification) return res.status(404).json({error: 'Notification not found'});
-
-    if(notification.to.toString() !== userId.toString()) {
-      return res.status(403).json({error: 'You are not allowed to delete this notification'})
-    } 
-
-    await Notification.findByIdAndDelete(notificationId);
-    res.status(200).json({message: 'Notification deleted successfully'});
-  } catch (error) {
-    console.log("Error in deleteNotification function: ", error);
-    res.status(500).json({error: 'Error server'});
-  }
-}
+		res.status(200).json({ message: "Notifications deleted successfully" });
+	} catch (error) {
+		console.log("Error in deleteNotifications function", error.message);
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+};
