@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "../../../api/auth";
+import { useNavigate } from 'react-router-dom';
 
 import XSvg from "../../../components/svgs/X";
 
@@ -19,9 +20,14 @@ const SignUpPage = () => {
     password: "",
   });
 
+  const navigate = useNavigate('/login')
+
   const { mutate, isPending } = useMutation({
     mutationFn: registerUser,
-    onSuccess: () => toast.success("Account created successfully"),
+    onSuccess: () => {
+      toast.success("Account created successfully");
+      navigate('/login')
+    },
     onError: (error) => {
       console.log(error);
       toast.error(error.response.data.error);
