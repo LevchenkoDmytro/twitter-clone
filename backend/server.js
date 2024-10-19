@@ -1,3 +1,4 @@
+import path from 'path'
 import express from "express";
 import authRoutes from './routes/auth.route.js'
 import userRoutes from './routes/user.route.js'
@@ -13,6 +14,7 @@ dotenv.config()
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const __dirname = path.resolve()
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
