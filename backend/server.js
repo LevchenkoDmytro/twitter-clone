@@ -23,7 +23,9 @@ cloudinary.config({
 })
 
 app.use(cors({
-  origin: 'https://twitter-clone-6uyt.onrender.com',
+  origin: process.env.NODE_ENV === 'production' 
+    ? 'https://twitter-clone-6uyt.onrender.com' 
+    : 'http://localhost:5000',
   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
   credentials: true 
 }));
