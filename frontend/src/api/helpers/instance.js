@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const instance = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://twitter-clone-server-3x70yfe98-levchenkodmytros-projects.vercel.app/api',
   headers: {
     Accept: 'application/json',
     'Content-type': 'application/json',
